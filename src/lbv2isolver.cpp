@@ -724,10 +724,10 @@ void LBV2ISolver::run(string filename)
 
   TCCGenerator tccg(solver_, 1);
   Term tcc1 = tccg.convert(assert_term);
-  solver_->assert_formula(tcc1);
+  solver_->assert_formula(solver_->make_term(Not, tcc1));
   Result tcc_res = solver_->check_sat();
   cout << "tcc_res = " << tcc_res << endl;
-  assert(tcc_res.is_sat());
+  assert(tcc_res.is_unsat());
 
   solver_->reset_assertions();
   solver_->assert_formula(assert_term);
