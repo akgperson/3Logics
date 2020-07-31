@@ -726,14 +726,20 @@ void LBV2ISolver::run(string filename)
   Term tcc1 = tccg.convert(assert_term);
   solver_->assert_formula(solver_->make_term(Not, tcc1));
   Result tcc_res = solver_->check_sat();
-  cout << "tcc_res = " << tcc_res << endl;
+  cout << "negation of TCC is: " << tcc_res << endl;
   assert(tcc_res.is_unsat());
-
-  solver_->reset_assertions();
-  solver_->assert_formula(assert_term);
-  Result res = solver_->check_sat();
-  assert(res.is_sat());
-  //TODO: check if need this s-> or can just omit
+  if (tcc_res.is_sat()) {
+    //trow exception
+    cout << "TCC is not valid" << endl;
+    //print TCC itself (how passed?)
+  }
+  else {
+    solver_->reset_assertions();
+    solver_->assert_formula(assert_term);
+    Result res = solver_->check_sat();
+    cout << "formula is: " << res << endl;
+    assert(res.is_sat());
+  }
 }
 
 void LBV2ISolver::run_on_stdin()
