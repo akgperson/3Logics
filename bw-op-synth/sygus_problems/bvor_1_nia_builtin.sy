@@ -1,0 +1,33 @@
+
+(set-logic NIA)
+(synth-fun int_bvor_1 ((s Int) (t Int)) Int
+(
+  (I Int) (Ic Int) (B Bool)
+)
+(
+  (I Int  (
+       Ic
+       s
+       t
+       (+ I I)
+       (* I I)
+       (ite B I I)
+    )
+  )
+  (Ic Int (
+    (Constant Int)
+  )
+)
+  (B Bool (
+       (= I Ic)
+       (>= I I)
+        (not B)
+     )
+  )
+)
+)
+(constraint (= (int_bvor_1 0 0) 0))
+(constraint (= (int_bvor_1 0 1) 1))
+(constraint (= (int_bvor_1 1 0) 1))
+(constraint (= (int_bvor_1 1 1) 1))
+(check-synth)

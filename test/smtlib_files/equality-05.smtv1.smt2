@@ -1,0 +1,10 @@
+(set-option :incremental false)
+
+(set-logic QF_BV)
+(declare-fun x () (_ BitVec 1))
+(declare-fun y () (_ BitVec 1))
+(assert (= x (_ bv0 1)))
+(assert (= y (_ bv1 1)))
+(assert (= x y))
+(assert  true )
+(check-sat)
