@@ -1,6 +1,5 @@
 #include <assert.h>
 #include "utils.h"
-#include "bw_functions.h"
 #include "opts.h"
 
 using namespace smt;
@@ -174,19 +173,7 @@ Term utils::gen_euclid(Term m, Term n) {
 
 Term utils::gen_bitwise_int(Op op, uint64_t k, const Term & x, const Term & y)
 {
-  if (op.prim_op == BVAnd) {
-    switch (k) {
-      case 1: return int_bvand_1(x, y, solver_);
-      case 2: return int_bvand_2(x, y, solver_);
-      case 3: return int_bvand_3(x, y, solver_);
-      case 4: return int_bvand_4(x, y, solver_);
-      case 5: return int_bvand_5(x, y, solver_);
-      case 6: return int_bvand_6(x, y, solver_);
-      default: assert(false);
-    }
-  } else {
-    assert(false);
-  }
+  return y;
 }
 
 Term utils::gen_block(Op op,
