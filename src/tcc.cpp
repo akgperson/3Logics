@@ -95,7 +95,7 @@ smt::Term TCCGenerator::convert(smt::Term &t)
 {
   visit(t);
   Term res = cache_.at(t);
-  cout << "res = " << res << endl;
+//  cout << "res = " << res << endl;
   return res;
 }
 
