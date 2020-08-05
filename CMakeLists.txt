@@ -5,6 +5,8 @@ project(lazybv2int)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
+find_package(GMP REQUIRED)
 
 include_directories("${PROJECT_SOURCE_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}/src")
@@ -64,7 +66,7 @@ target_include_directories(lazybv2int PUBLIC
 target_link_libraries(lazybv2int PUBLIC "${PROJECT_SOURCE_DIR}/deps/smt-switch/local/lib/libsmt-switch-msat.a")
 target_link_libraries(lazybv2int PUBLIC "${PROJECT_SOURCE_DIR}/deps/smt-switch/local/lib/libsmt-switch-cvc4.a")
 target_link_libraries(lazybv2int PUBLIC "${PROJECT_SOURCE_DIR}/deps/smt-switch/local/lib/libsmt-switch.a")
-target_link_libraries(lazybv2int PUBLIC gmp)
+target_link_libraries(lazybv2int PUBLIC ${GMP_LIBRARIES})
 target_link_libraries(lazybv2int PUBLIC pthread)
 
 add_executable(lazybv2int-bin
