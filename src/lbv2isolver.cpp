@@ -726,17 +726,18 @@ void LBV2ISolver::run(string filename)
   Term tcc1 = tccg.convert(assert_term);
   solver_->assert_formula(solver_->make_term(Not, tcc1));
   Result tcc_res = solver_->check_sat();
-  cout << "negation of TCC is: " << tcc_res << endl;
+//  cout << "negation of TCC is: " << tcc_res << endl;
 //  assert(tcc_res.is_unsat());
   if (tcc_res.is_sat()) {
     throw SmtException("TCC is not valid, so formula is not always defined.");
-    cout << "the TCC was: " << tcc1 << endl;
+    //TODO print TCC
   }
   else {
     solver_->reset_assertions();
     solver_->assert_formula(assert_term);
     Result res = solver_->check_sat();
-    cout << "formula is: " << res << endl;
+//    cout << "formula is: " << res << endl;
+    cout << res << endl;
   }
 }
 
