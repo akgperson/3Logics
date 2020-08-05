@@ -79,8 +79,13 @@ smt::WalkerStepResult TCCGenerator::visit_term(smt::Term &t)
       //}
 
       else { //op w/o undefined behavior
-        Term condition = solver_->make_term(And, cached_tcc[0], cached_tcc[1]);
+        Term condition;
+        if (cached_tcc.size() == 1) {
+          condition = cached_tcc[0];
+        } else {
+          condition = solver_->make_term(And, cached_tcc);
 //        will need loop for non binary ops?
+        }
         cache_[t] = condition;
       }
     }
