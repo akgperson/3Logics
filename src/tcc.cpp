@@ -43,7 +43,7 @@ smt::WalkerStepResult TCCGenerator::visit_term(smt::Term &t)
         cache_[t] = condition;
       }
       else if (op.prim_op == Not) {
-        Term condition = solver_->make_term(Not, cached_tcc[0]);
+        Term condition = cached_tcc[0];
         cache_[t] = condition;
       }
       else if (op.prim_op == Iff) {
@@ -69,21 +69,32 @@ smt::WalkerStepResult TCCGenerator::visit_term(smt::Term &t)
       }
 
       //Quantifiers
-      //TODO add exists; fix issue where get 'undeclared identifier: Exists' error
-      //else if (op.prim_op == Exists) {
-        //Term condition = solver_->make_term(Or, solver_->make_term(Exists, cached_children[0], solver_->make_term(And, cached_children[1], cached_tcc[1]), solver_->make_term(Forall, cached_children[0], cached_tcc[1])));
-        //cache_[t] = condition;
-      //}
-      //TODO add Forall
-      //else if (op.prim_op == Exists) {
-      //}
+//      else if (op.prim_op == Exists) {
+        // Exists x T <-> (Exists x (T ^ TCC(T)) \/ (Forall x TCC(T))
+//        Term condition = solver_->make_term(Or, solver_->make_term(Exists, cached_children[0], solver_->make_term(And, cached_children[1], cached_tcc[1]), solver_->make_term(Forall, cached_children[0], cached_tcc[1])));
+//        cache_[t] = condition;
+//      }
+//      else if (op.prim_op == Forall) {
+        // (forall (x) term)
+        // forall (x) T <=> ~(Exists (x) ~T)
+        // forall x T <-> (Exists x (~T ^ TCC(T))) \/ (Forall x TCC(T))
+//        Term condition = solver_->make_term(Or, solver_->make_term(Exists, cached_children[0], solver_->make_term(And, solver_->make_term(Not, cached_children[1]), cached_tcc[1])), solver_->make_term(Forall, cached_children[0], cached_tcc[1]));
+//        cache_[t] = condition;
+//      }
 
       else { //op w/o undefined behavior
         Term condition;
         if (cached_tcc.size() == 1) {
           condition = cached_tcc[0];
+<<<<<<< HEAD
+        }
+        else {
+          condition = solver_->make_term(And, cached_tcc);
+        }
+=======
         } else {
           condition = solver_->make_term(And, cached_tcc);
+>>>>>>> 0c98a4c838014d726ec4e6dcc0afa1b5a7a6875d
 //        will need loop for non binary ops?
         }
         cache_[t] = condition;
