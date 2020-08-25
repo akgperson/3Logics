@@ -34,7 +34,8 @@ if [ ! -d "$DEPS/smt-switch" ]; then
     cd smt-switch
 #    git checkout -f 969a5c0850e639c5547f0e6166491c85bd2e1e4d
 #    git checkout -f 15d031bd3d673f0b39765534fd1fefd872c45ed4
-    git checkout -f 245622786fea1fb6b061c55ba36fae3d5842d597
+#    git checkout -f 245622786fea1fb6b061c55ba36fae3d5842d597
+    git checkout -f cdcdbb402089a5c1c3e2ba2754ff6ff57537919c
     ./contrib/setup-cvc4.sh
     ./configure.sh --cvc4 --msat --msat-home=../mathsat --prefix=local --static $CONF_OPTS
     cd build
